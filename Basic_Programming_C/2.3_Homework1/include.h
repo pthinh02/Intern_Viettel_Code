@@ -32,12 +32,12 @@ typedef enum{
 
 int random_integer(int minN, int maxN);
 
-void cadge(FILE *ptr);
-void stole(FILE *ptr);
-void work(FILE *ptr);
+void cadge(FILE *fptr);
+void stole(FILE *fptr);
+void work(FILE *fptr);
 
 void input(someone_t *human);
-void output(someone_t *human1, FILE *ptr);
+void output(someone_t *human1, FILE *fptr);
 
 
 #endif //INCLUDE.H

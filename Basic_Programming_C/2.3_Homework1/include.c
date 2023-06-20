@@ -49,11 +49,11 @@ void input(someone_t *human)
     }
 }
 
-void output(someone_t *human1, FILE *ptr)
+void output(someone_t *human1, FILE *fptr)
 {
-    fprintf(ptr,"TYPE: %s\n",human1->type);
-    fprintf(ptr,"EXPRESSION: %s\n", human1->salary.expression);
-    fprintf(ptr,"VALUE: %d\n", human1->salary.value);
-    fprintf(ptr,"FUNCTION: ");
-    human1->func_ptr(ptr);
+    fprintf(fptr,"TYPE: %s\n",human1->type);
+    fprintf(fptr,"EXPRESSION: %s\n", human1->salary.expression);
+    fprintf(fptr,"VALUE: %d\n", human1->salary.value);
+    fprintf(fptr,"FUNCTION: ");
+    human1->func_ptr(fptr);
 }
