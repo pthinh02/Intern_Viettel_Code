@@ -7,5 +7,5 @@ build: main.c ./src/foo.c
 	gcc -o main main.o ./src/foo.o
 
 clean: 
-	rm -f main */*.o
+	rm -f main */*.o *.o
 	@echo CLEAN DONE
