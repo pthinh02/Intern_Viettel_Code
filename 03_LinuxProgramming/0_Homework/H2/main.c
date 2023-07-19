@@ -4,27 +4,23 @@
 #include <unistd.h>
 #include <fcntl.h>
 
-//Viet chuong trinh in ra ten cua process tu ProcessID nhap tu keyboard
+//Viet chuong trinh hien thi noi dung file.(# cat)
 //Hint: folder /proc
 
 int main()
 {
-    pid_t PID; //ProcessID
     int fd;
     char filepath[256];
     char my_buffer[512];
-    printf("Enter process id: ");
-    scanf("%d", &PID);
-
-    sprintf(filepath, "/proc/%d/cmdline", PID);
-    
-
+    printf("Enter Filepath: ");
+    fgets(filepath, 256, stdin);
+    filepath[strcspn(filepath, "\n")] = 0;
 
     fd  = open(filepath, O_RDONLY);
     if(fd == -1)
     {
         printf("Open failed\n");
-        exit(1);
+        exit(0);
     }
     read(fd, my_buffer, 512);
     printf("%s\n",my_buffer);
