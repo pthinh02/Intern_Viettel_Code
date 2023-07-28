@@ -1,1 +1,3 @@
-client server *.o
+client
+server
+*.o
