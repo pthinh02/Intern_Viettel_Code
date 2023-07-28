@@ -11,3 +11,5 @@ server:
 clean:
 	rm -f *.o server client
 	echo DONE 
+
+.PHONY: server clean client

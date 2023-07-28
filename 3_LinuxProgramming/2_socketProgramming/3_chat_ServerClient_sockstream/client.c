@@ -18,7 +18,7 @@ do{	                                                    \
 		perror(msg);						            \
 		exit(EXIT_FAILURE);						        \
 	}											        \
-} while(0)
+} while(0)                                              \
 
 #define MAX_SIZE_BUFFER 1024
 #define PORT 8080

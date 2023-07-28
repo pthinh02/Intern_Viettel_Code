@@ -35,7 +35,6 @@ int main(int argc, char *argv[])
     int client_addr_len = sizeof(client_addr);
 
     char buffer[MAX_SIZE_BUFFER];
-    char buffer[MAX_SIZE_BUFFER];
     
     memset(buffer, 0, sizeof(buffer));
     memset(&server_addr, 0, sizeof(server_addr));
@@ -73,7 +72,6 @@ int main(int argc, char *argv[])
     {
         memset(buffer, 0, sizeof(buffer));
 
-
         printf("[+] Server: ");
         fgets(buffer, sizeof(buffer), stdin);
         write(p2pfd, buffer, strlen(buffer));
@@ -83,7 +81,7 @@ int main(int argc, char *argv[])
             break;
         }
 
-        ret = read(p2pfd, buffer, strlen(buffer));
+        ret = read(p2pfd, buffer, sizeof(buffer));
         ERROR_CHECK(ret, "read()");
         
         printf("%s", buffer);
