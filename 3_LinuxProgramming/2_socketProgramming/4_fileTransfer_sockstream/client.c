@@ -9,6 +9,8 @@
 #include <netinet/ip.h>
 #include <arpa/inet.h>
 #include <sys/socket.h>
+#include <fcntl.h>
+
 
 #define ERROR_CHECK(ret, msg)                           \
 do{                                                     \
@@ -20,15 +22,16 @@ do{                                                     \
     }                                                   \
 }while(0);                                              \
 
+void receive_file(int socketfd);
 
 #define BACK_LOG 50
 #define MAX_SIZE_BUFFER 1024
 #define PORT 8080
-
+int ret;            //test value
 
 int main(int argc, char* argv[])
 {
-    int ret;            //test value
+    
     int clientfd = -1;
 
     int buffer[MAX_SIZE_BUFFER];
@@ -47,8 +50,29 @@ int main(int argc, char* argv[])
     ret = connect(clientfd, (struct sockaddr*) &server_addr, sizeof(server_addr));
     ERROR_CHECK(ret, "connect()");
 
-    receive_file(clientfd, fp);
+    receive_file(clientfd);
 
 
     return 0;
+}
+
+
+
+void receive_file(int socketfd)
+{
+    int fd;
+
+    fd = open("Rtext.txt", O_RDWR | O_CREAT, 0666);
+
+    while(1)
+    {
+
+        char buffer[MAX_SIZE_BUFFER] ={0};
+        ret = recv(socketfd, buffer, MAX_SIZE_BUFFER, 0);
+        ERROR_CHECK(ret, "recv()");
+        
+        write(fd, buffer, sizeof(buffer));
+        close (socketfd);
+    }
+
 }

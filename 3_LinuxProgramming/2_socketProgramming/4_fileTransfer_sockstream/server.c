@@ -9,14 +9,15 @@
 #include <netinet/ip.h>
 #include <arpa/inet.h>
 #include <sys/socket.h>
+#include <fcntl.h>
 
 #define ERROR_CHECK(ret, msg)                           \
 do{                                                     \
     if(ret == -1)                                       \
     {                                                   \
-        fprintf(stderr, "%s[%d]", __FILE__, __LINE__);    \
+        fprintf(stderr, "%s[%d]", __FILE__, __LINE__);  \
         perror(msg);                                    \
-        exit(EXIT_FAILURE);                              \
+        exit(EXIT_FAILURE);                             \
     }                                                   \
 }while(0);                                              \
 
@@ -24,21 +25,20 @@ do{                                                     \
 #define BACK_LOG 50
 #define MAX_SIZE_BUFFER 1024
 #define PORT 8080
-
-void send_file(int socketfd, int filefd );
+int ret;
+void send_file(int socketfd, FILE* filefd );
 
 
 int main(int argc, char* argv[])
 {
     int listenfd = -1;
     int p2pfd = -1;
-    int ret;
     FILE* fp;
     
 
-    char filename[100] = "./mytext.txt";
+    char *filename = "mytext.txt";
 
-    fp = open(filename, O_RDWR | O_CREAT, 0666);
+    fp = fopen(filename, "r");
 
     struct sockaddr_in server_addr, client_addr;
 
@@ -69,17 +69,13 @@ int main(int argc, char* argv[])
 
 
 
-void send_file(int socketfd, int filefd)
+void send_file(int socketfd, FILE* filefd)
 {
-    buffer[MAX_SIZE_BUFFER]= {0};
+    char buffer[MAX_SIZE_BUFFER]= {0};
     while( fgets(buffer, MAX_SIZE_BUFFER, filefd) != NULL)
     {
-        if ( send (socketfd, buffer, sizeof(buffer) , NULL) == -1 )
-        {
-            perror("Error in sending data\n");
-            exit(1);
-        }
+        ret = send (socketfd, buffer, sizeof(buffer) , MSG_DONTWAIT);
+        ERROR_CHECK(ret, "send()");
         memset(buffer,0, MAX_SIZE_BUFFER);
     }
-
 }
