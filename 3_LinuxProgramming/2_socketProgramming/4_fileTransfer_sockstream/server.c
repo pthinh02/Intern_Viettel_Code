@@ -11,6 +11,8 @@
 #include <sys/socket.h>
 #include <fcntl.h>
 
+//To create a 1GB file .txt using command: fallocate -l 1G 1gb.txt in terminal.
+
 #define ERROR_CHECK(ret, msg)                           \
 do{                                                     \
     if(ret == -1)                                       \
@@ -36,7 +38,7 @@ int main(int argc, char* argv[])
     FILE* fp;
     
 
-    char *filename = "mytext.txt";
+    char *filename = "1gb.txt";
 
     fp = fopen(filename, "r");
 

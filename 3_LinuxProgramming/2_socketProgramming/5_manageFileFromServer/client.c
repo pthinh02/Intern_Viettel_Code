@@ -21,61 +21,32 @@ do{                                                     \
         exit(EXIT_FAILURE);                              \
     }                                                   \
 }while(0);                                              \
-
-void receive_file(int socketfd);
-
-#define BACK_LOG 50
-#define MAX_SIZE_BUFFER 1024
 #define PORT 8080
-int ret;            //test value
+#define MAX_SIZE_BUFFER 1024;
 
-int main(int argc, char* argv[])
+
+
+int ret;
+
+
+
+int main()
 {
-    
     int clientfd = -1;
+    char buffer[MAX_SIZE_BUFFER] = {0};
 
-    int buffer[MAX_SIZE_BUFFER];
-    struct sockaddr_in server_addr;
+    struct sockaddr_in server_addr = {0};
 
-    memset(&server_addr, 0, sizeof(server_addr));
-    memset(buffer, 0, sizeof(buffer));
 
     server_addr.sin_family = AF_INET;
     server_addr.sin_port = htons(PORT);
     server_addr.sin_addr.s_addr = INADDR_ANY;
 
+    clientfd = (AF_INET, SOCK_STREAM, 0);
 
-    clientfd = socket(AF_INET, SOCK_STREAM, 0);
 
-    ret = connect(clientfd, (struct sockaddr*) &server_addr, sizeof(server_addr));
-    ERROR_CHECK(ret, "connect()");
 
-    receive_file(clientfd);
 
 
     return 0;
-}
-
-
-
-void receive_file(int socketfd)
-{
-    int fd;
-
-    fd = open("R1gb.txt", O_RDWR | O_CREAT, 0666);
-
-    while(1)
-    {
-
-        char buffer[MAX_SIZE_BUFFER] ={0};
-        ret = recv(socketfd, buffer, MAX_SIZE_BUFFER, 0);
-        ERROR_CHECK(ret, "recv()");
-        if(ret == 0)
-        {
-            break;
-        }
-        write(fd, buffer, sizeof(buffer));
-        
-    }
-    close (socketfd);
 }
