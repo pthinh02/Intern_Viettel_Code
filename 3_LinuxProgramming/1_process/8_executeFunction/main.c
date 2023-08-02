@@ -18,7 +18,32 @@
 
 int main()
 {
-    _execlp("ping", "ping", "google.com" , NULL);
+    char* path = "./bangcuuchuong/multiple";
+    char* arg1 = "4";
+
+    pid_t id = fork();
+    if(id == 0) //Child process
+    {
+        int id2 = fork();
+        if(id2 == 0)
+        {
+            execlp(path,path, arg1, NULL);
+        }
+        else 
+        {
+            wait(NULL);
+            printf("Mission completed!\n");
+        }
+        exit(1);
+    }
+    else if(id != 0)    // Parent process
+    {
+        
+        wait(NULL);
+        printf("Wait for child process\n");
+    }
+
+    
 
 
 
