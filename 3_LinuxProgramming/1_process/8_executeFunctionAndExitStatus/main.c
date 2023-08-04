@@ -19,6 +19,7 @@
 int main()
 {
     char* path = "./bangcuuchuong/multiple";
+    char* pathPing = "/bin/ping";
     char* arg1 = "4";
 
     pid_t id = fork();
@@ -27,10 +28,29 @@ int main()
         int id2 = fork();
         if(id2 == 0)
         {
-            execlp(path,path, arg1, NULL);
+            int ret = execlp("ping","ping","-c" , "4", "google.com", NULL);
+            if(ret == -1)
+            {
+                printf("Could not find the program to execute!\n");
+                return 2;
+            }
         }
-        else 
+        else    //Parent process 
         {
+            int wstatus;
+            wait(&wstatus);
+            if( WIFEXITED(wstatus))
+            {
+                int statusCode = WEXITSTATUS(wstatus);
+                if(statusCode == 0)
+                {
+                    printf("Success\n");
+                }
+                else 
+                {
+                    printf("Failure with status code %d.\n", statusCode);
+                }
+            }
             wait(NULL);
             printf("Mission completed!\n");
         }
