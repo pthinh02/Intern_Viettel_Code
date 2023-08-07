@@ -33,10 +33,13 @@ int main()
         {
             printf("Enter second you want: ");
             scanf("%d", &t);
-            kill(pid, SIGCONT);
-            sleep(t);
-            kill(pid, SIGSTOP);
-        }while(t>0);
+            if(t>0)
+            {
+                kill(pid, SIGCONT);
+                sleep(t);
+                kill(pid, SIGSTOP);
+            }
+        }while(t > 0);
 
 
         kill(pid, SIGKILL);
