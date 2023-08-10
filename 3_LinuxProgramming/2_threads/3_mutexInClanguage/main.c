@@ -3,40 +3,42 @@
 #include <unistd.h>
 #include <pthread.h>
 
-int mails = 0;
-
+int mails;
+pthread_mutex_t mutex;
 void *routine()
 {
-    for(int i = 0; i< 100000000; i++)
+    for(int i = 0; i < 100000000; i++ )
     {
-        mails ++;
+        pthread_mutex_lock(&mutex);
+        mails++;
+        pthread_mutex_unlock(&mutex);
     }
-    //read mails
-    //increment
-    // write mails
 }
-
 
 int main()
 {
-    pthread_t t1, t2;
+    pthread_t t1,t2;
+    pthread_mutex_init(&mutex, NULL);
+
 
     if(pthread_create(&t1, NULL, &routine, NULL))
     {
-        exit(1);
+        return 1;
     }
     if(pthread_create(&t2, NULL, &routine, NULL))
     {
-        exit(2);
+        return 2;
     }
     if(pthread_join(t1, NULL))
     {
-        exit(3);
+        return 3;
     }
     if(pthread_join(t2, NULL))
     {
-        exit(4);
+        return 4;
     }
+    pthread_mutex_destroy(&mutex);
+
     printf("Number of mails: %d\n", mails);
     return 0;
 }
