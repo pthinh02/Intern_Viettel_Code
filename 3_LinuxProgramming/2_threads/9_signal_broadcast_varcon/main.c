@@ -19,7 +19,7 @@ void *fuel_filling()
         
         printf("Filling....%d\n", fuel);
         pthread_mutex_unlock(&mutexFuel);
-        pthread_cond_signal(&condFuel);
+        pthread_cond_broadcast(&condFuel);
         usleep(500000);
     }
 }
@@ -32,10 +32,6 @@ void *car()
     {
         printf("No fuel. Waiting...\n");
         pthread_cond_wait(&condFuel, &mutexFuel);
-        //Equivalent to: 
-        // pthread_mutex_unlock(&mutexFuel);
-        // wait for signal on condFuel
-        // pthread_mutex_lock()
     }
     fuel -= 40;
     printf("Got fuel. Now left: %d\n", fuel);
@@ -46,10 +42,10 @@ void *car()
 
 int main(int argc, char *argv[])
 {
-    pthread_t th[2];
+    pthread_t th[4];
     pthread_mutex_init(&mutexFuel, NULL);
     pthread_cond_init(&condFuel, NULL);
-    for(int i = 0; i < 2; i ++)
+    for(int i = 0; i < 4; i ++)
     {
         if(i == 1)
         {
@@ -68,7 +64,7 @@ int main(int argc, char *argv[])
             }
         }        
     }
-    for(int i = 0; i < 2; i ++)
+    for(int i = 0; i < 4; i ++)
     {
         if(i == 1)
         {
