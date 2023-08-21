@@ -12,7 +12,7 @@ void *roll_dice()
     *result = value;
     printf("Location of variables: %p\n", result);
     printf("Result : %d\n", *result);
-    return result;
+    pthread_exit((void*) result);
 }
 
 
