@@ -12,13 +12,13 @@ int main (int argc, char* argv[])
     pid_t id2 = fork();
     while((wait(NULL) != -1) || errno != ECHILD )
     {
-        printf("Wait for children\n");
+        printf("[%d] Wait for children\n", getpid());
     };
 
     
     if(id1 == 0)
     {
-        if(id2 == 0)    printf("I'm a grand child process\n");
+        if(id2 == 0)    printf("I'm a grand child (z) process\n");
         else if( id2 != 0) printf("I'm x process\n");
     }
     else
@@ -27,7 +27,7 @@ int main (int argc, char* argv[])
         else printf("I'm parent\n");
     }
 
-    
+    S
 
     
     return 0;

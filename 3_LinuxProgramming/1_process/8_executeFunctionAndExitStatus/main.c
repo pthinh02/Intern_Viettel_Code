@@ -9,6 +9,7 @@
 // FIFO lib
 #include <sys/stat.h>
 #include <sys/types.h>
+
 // system call lib
 #include <fcntl.h>
 
@@ -26,7 +27,7 @@ int main()
     if(id == 0) //Child process
     {
         int id2 = fork();
-        if(id2 == 0)
+        if(id2 == 0)    //Grand child process was replaced by exec()
         {
             int ret = execlp("ping","ping","-c" , "4", "google.com", NULL);
             if(ret == -1)
@@ -35,10 +36,10 @@ int main()
                 return 2;
             }
         }
-        else    //Parent process 
+        else            //Check information return of child process
         {
             int wstatus;
-            wait(&wstatus);
+            wait(&wstatus); //Status of child process return
             if( WIFEXITED(wstatus))
             {
                 int statusCode = WEXITSTATUS(wstatus);
@@ -56,9 +57,8 @@ int main()
         }
         exit(1);
     }
-    else if(id != 0)    // Parent process
+    else if(id != 0)    // Parent process waiting for child process
     {
-        
         wait(NULL);
         printf("Wait for child process\n");
     }
