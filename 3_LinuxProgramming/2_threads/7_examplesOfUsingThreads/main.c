@@ -21,7 +21,6 @@ void *routine(void *arg)
     return arg;
 }
 
-
 int main(int argc, char *argv[])
 {
     pthread_t threads[THREADS_NUM];
@@ -31,7 +30,6 @@ int main(int argc, char *argv[])
     {
         int *a= malloc(sizeof(int));
         *a = i*5;
-
         if(pthread_create(&threads[i], NULL, &routine, a))
         {
             perror("Failed to created threads\n");
@@ -48,9 +46,6 @@ int main(int argc, char *argv[])
         free(r);
     }
     printf("Result = %d\n", globalSum);
-    
-
-
-    
+        
     return 0;
 }

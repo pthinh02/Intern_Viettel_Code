@@ -26,9 +26,5 @@ int main (int argc, char* argv[])
         if( id2 == 0) printf("I'm y process\n");
         else printf("I'm parent\n");
     }
-
-    S
-
-    
     return 0;
 }

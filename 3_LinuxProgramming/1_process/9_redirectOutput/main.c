@@ -17,12 +17,8 @@
 
 int main()
 {
-    char* path = "./bangcuuchuong/multiple";
     char* pathPing = "/bin/ping";
-    char* arg1 = "4";
-
-    
-
+  
     pid_t id = fork();
     if(id == 0) //Child process
     {

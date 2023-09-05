@@ -1,10 +1,11 @@
 The file descriptor of duplicated: 1
-PING google.com (172.217.24.78) 56(84) bytes of data.
-64 bytes from sin10s06-in-f14.1e100.net (172.217.24.78): icmp_seq=1 ttl=57 time=47.1 ms
-64 bytes from sin10s06-in-f14.1e100.net (172.217.24.78): icmp_seq=2 ttl=57 time=47.2 ms
-64 bytes from sin10s06-in-f14.1e100.net (172.217.24.78): icmp_seq=3 ttl=57 time=47.2 ms
-64 bytes from sin10s06-in-f14.1e100.net (172.217.24.78): icmp_seq=4 ttl=57 time=46.9 ms
+PING google.com (172.217.24.238) 56(84) bytes of data.
+64 bytes from hkg12s34-in-f14.1e100.net (172.217.24.238): icmp_seq=1 ttl=57 time=27.3 ms
+64 bytes from hkg12s34-in-f14.1e100.net (172.217.24.238): icmp_seq=2 ttl=57 time=27.3 ms
+64 bytes from hkg12s34-in-f14.1e100.net (172.217.24.238): icmp_seq=3 ttl=57 time=27.5 ms
+64 bytes from hkg12s34-in-f14.1e100.net (172.217.24.238): icmp_seq=4 ttl=57 time=27.4 ms
 
 --- google.com ping statistics ---
-4 packets transmitted, 4 received, 0% packet loss, time 3004ms
-rtt min/avg/max/mdev = 46.998/47.178/47.277/0.187 ms
+4 packets transmitted, 4 received, 0% packet loss, time 3005ms
+rtt min/avg/max/mdev = 27.346/27.422/27.521/0.213 ms
+0.127 ms
